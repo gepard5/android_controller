@@ -19,23 +19,18 @@ ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(p
     addToBottom(edit_widget);
     main_layout->setAlignment(edit_widget, Qt::AlignBottom);
 
-    //host_edit->setMaximumHeight(30);
     auto host_label = new QLabel("Host:");
-   // host_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
     edit_layout->addWidget(host_label);
     edit_layout->addWidget(host_edit);
     password_edit = new QLineEdit("123");
-   // password_edit->setMaximumHeight(30);
+    password_edit->setEchoMode(QLineEdit::Password);
     auto password_label = new QLabel("Password:");
- //   password_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
     edit_layout->addWidget(password_label);
     edit_layout->addWidget(password_edit);
 
     port_edit = new QLineEdit("9999");
     port_edit->setValidator(new QIntValidator(0, 65536, this));
     auto port_label = new QLabel("Port:");
-   // port_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
-    //port_label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     edit_layout->addWidget(port_label);
     edit_layout->addWidget(port_edit);
 
@@ -52,10 +47,10 @@ ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(p
 
     auto select_button = createPushButton("Select location", [this]() {
        auto select_screen = new SelectScreen(this);
-       emit pushOverlappingScreen(new SelectScreen(select_screen));
        connect(select_screen, &SelectScreen::changedHost, [this](QString h){ host_edit->setText(h); });
-       connect(select_screen, &SelectScreen::changedPort, [this](int p){ port_edit->setText(QString(p)); });
+       connect(select_screen, &SelectScreen::changedPort, [this](QString p){ port_edit->setText(p); });
        connect(select_screen, &SelectScreen::changedPassword, [this](QString p){ password_edit->setText(p); });
+       emit pushOverlappingScreen(select_screen);
     });
     buttons_layout->addWidget(select_button);
 

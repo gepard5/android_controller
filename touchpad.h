@@ -36,7 +36,7 @@ protected:
             current_x = event->pos().x();
             current_y = event->pos().y();
             std::cout<<"Moved"<<std::endl;
-            emit mouseMoved(x/5, y/5);
+            emit mouseMoved(x/3, y/3);
         }
    //     setGeometry(QRect(geometry().topLeft() + event->pos() - dragStart, rect().size()));
     }

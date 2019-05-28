@@ -31,7 +31,7 @@ protected:
         if(abs(y) >= MOVE_THRESHOLD) {
             current_y = event->pos().y();
             std::cout<<"Moved"<<std::endl;
-            emit mouseMoved(0, y/5);
+            emit mouseMoved(0, -1*y/10);
         }
    //     setGeometry(QRect(geometry().topLeft() + event->pos() - dragStart, rect().size()));
     }

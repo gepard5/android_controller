@@ -57,6 +57,7 @@
 
 #include <QMainWindow>
 #include <QItemSelection>
+#include <list>
 
 //! [0]
 class MainWindow : public QMainWindow
@@ -77,8 +78,7 @@ protected:
 private:
     MenuWidget *menu_widget;
     Screen *current_screen;
-    Screen *overlapped_screen;
-    bool overlapped{false};
+    std::list<Screen*> overlapped_screen;
     QHBoxLayout *layout;
 
     ServerConnection *connection;

@@ -8,6 +8,7 @@ SOURCES   = \
             commandscreen.cpp \
             connectscreen.cpp \
             draggablelabel.cpp \
+            editlocationscreen.cpp \
             keypress.cpp \
             keyreceiver.cpp \
             location.cpp \
@@ -26,6 +27,7 @@ HEADERS   = \
             commandscreen.h \
             connectscreen.h \
             draggablelabel.h \
+            editlocationscreen.h \
             keypress.h \
             keyreceiver.h \
             location.h \

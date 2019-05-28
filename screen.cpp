@@ -13,10 +13,10 @@ Screen::Screen(QWidget *parent, bool addTopButtons) : QWidget(parent)
             emit backToMenu();
         });
         top_layout->addWidget(back_button);
-        auto keyboard_button = createPushButton("Keyboard", [this]() {
-            emit showKeyboard();
-        });
-        top_layout->addWidget(keyboard_button);
+      //  auto keyboard_button = createPushButton("Keyboard", [this]() {
+      //      emit showKeyboard();
+      //  });
+      //  top_layout->addWidget(keyboard_button);
         auto mouse_button = createPushButton("Mouse", [this]() {
            emit showMouse();
         });

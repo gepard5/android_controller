@@ -7,10 +7,32 @@
 #include <QMimeData>
 #include <QDrag>
 #include <QPainter>
+#include <QLineEdit>
 
 RemoteMouseScreen::RemoteMouseScreen(QWidget * parent) : Screen(parent)
 {
     mouse_layout = new QVBoxLayout();
+
+    auto text_edit = new QLineEdit();
+    auto keyboard_layout = new QVBoxLayout();
+    main_layout->addLayout(keyboard_layout);
+    auto send_button = createPushButton("send text", [this, text_edit](){
+       auto txt = text_edit->text();
+       emit sendData(QString("print " + txt).toUtf8());
+       text_edit->setText("");
+    });
+    keyboard_layout->addWidget(text_edit);
+    keyboard_layout->addWidget(send_button);
+    auto control_widget = new QWidget();
+    auto control_layout = new QHBoxLayout();
+    control_widget->setLayout(control_layout);
+    auto enter_button = createKeyboardButton("Enter", "enter");
+    control_layout->addWidget(enter_button);
+    auto backspace_button = createKeyboardButton("Backspace", "backspace");
+    control_layout->addWidget(backspace_button);
+    auto delete_button = createKeyboardButton("Delete", "delete");
+    control_layout->addWidget(delete_button);
+    keyboard_layout->addWidget(control_widget);
 
     auto touchpad_widget = new QWidget(this);
     touchpad_widget->setFixedHeight(500);
@@ -52,3 +74,11 @@ RemoteMouseScreen::RemoteMouseScreen(QWidget * parent) : Screen(parent)
     main_layout->setAlignment(buttons_widget, Qt::AlignBottom);
 }
 
+QPushButton *RemoteMouseScreen::createKeyboardButton(const QString& key, const QString& msg)
+{
+    auto button = new QPushButton(key);
+    connect(button, &QPushButton::clicked, this, [this, msg](){
+       emit sendData((QString("keyboard ") + msg).toUtf8());
+    });
+    return button;
+}

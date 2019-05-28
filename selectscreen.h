@@ -11,14 +11,17 @@ class SelectScreen : public Screen
 {
     Q_OBJECT
 signals:
-    void changedPort(int);
+    void changedPort(QString);
     void changedHost(QString);
     void changedPassword(QString);
 
 public:
     SelectScreen(QWidget *parent);
-
+    ~SelectScreen() { writeLocationsToFile(); }
 protected:
+    void readLocationsFromFile();
+    void writeLocationsToFile();
+
     QListWidget *locations;
     std::map<QString, Location> locations_map;
 };

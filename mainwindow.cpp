@@ -109,17 +109,17 @@ MainWindow::MainWindow()
     auto connect_button = menu_widget->createPushButton("Connect", [mw = menu_widget, this](){ mw->pushScreen(new ConnectScreen(this->connection, this)); });
     menu_widget->addToMenu(connect_button);
 
-    auto remote_button = menu_widget->createPushButton("Remote", [mw = menu_widget, this](){ mw->pushScreen(new RemoteMouseScreen(this)); });
+    auto remote_button = menu_widget->createPushButton("Remote control", [mw = menu_widget, this](){ mw->pushScreen(new RemoteMouseScreen(this)); });
     menu_widget->addToMenu(remote_button);
     remote_button->setEnabled(false);
     connect(connection, &ServerConnection::connected, [remote_button](){ remote_button->setEnabled(true); });
     connect(connection, &ServerConnection::disconnected, [remote_button](){ remote_button->setEnabled(false); });
 
-    auto remote_keyboard = menu_widget->createPushButton("Remote", [mw = menu_widget, this](){ mw->pushScreen(new RemoteKeyboardScreen(this)); });
-    remote_keyboard->setEnabled(false);
-    menu_widget->addToMenu(remote_keyboard);
-    connect(connection, &ServerConnection::connected, [remote_keyboard](){ remote_keyboard->setEnabled(true); });
-    connect(connection, &ServerConnection::disconnected, [remote_keyboard](){ remote_keyboard->setEnabled(false); });
+   // auto remote_keyboard = menu_widget->createPushButton("Remote", [mw = menu_widget, this](){ mw->pushScreen(new RemoteKeyboardScreen(this)); });
+   // remote_keyboard->setEnabled(false);
+   // menu_widget->addToMenu(remote_keyboard);
+   // connect(connection, &ServerConnection::connected, [remote_keyboard](){ remote_keyboard->setEnabled(true); });
+   // connect(connection, &ServerConnection::disconnected, [remote_keyboard](){ remote_keyboard->setEnabled(false); });
 
     auto commands_button = menu_widget->createPushButton("Commands", [mw = menu_widget, this](){ mw->pushScreen(new CommandScreen(this->command_list, this->connection, this)); });
     commands_button->setEnabled(false);
@@ -169,8 +169,7 @@ void MainWindow::pushScreen(Screen *new_screen, bool is_overlapping)
     std::cout<<"Screen pushed "<<std::endl;
     layout->removeWidget(current_screen);
     if( is_overlapping ) {
-        overlapped_screen = current_screen;
-        overlapped = true;
+        overlapped_screen.push_back(current_screen);
     }
     else {
         if(current_screen != menu_widget)
@@ -195,16 +194,15 @@ void MainWindow::pushScreen(Screen *new_screen, bool is_overlapping)
 
 void MainWindow::showOverlappedScreen()
 {
-    if(!overlapped) return;
+    if(overlapped_screen.empty()) return;
 
     layout->removeWidget(current_screen);
     if(current_screen != menu_widget)
         current_screen->deleteLater();
     current_screen->hide();
 
-    current_screen = overlapped_screen;
-    layout->addWidget(overlapped_screen);
-    overlapped_screen->show();
-    overlapped = false;
-    overlapped_screen = nullptr;
+    current_screen = overlapped_screen.back();
+    overlapped_screen.pop_back();
+    layout->addWidget(current_screen);
+    current_screen->show();
 }

@@ -10,6 +10,7 @@ public:
     RemoteMouseScreen(QWidget * parent);
 
 protected:
+    QPushButton *createKeyboardButton(const QString& key, const QString& msg = "");
     /*void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
     void dropEvent(QDropEvent *event) override;

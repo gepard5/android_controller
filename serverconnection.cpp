@@ -66,7 +66,7 @@ void ServerConnection::connectToHost()
     connect(connection, &QTcpSocket::readyRead, [this](){ this->onReadTcpData(); });
     connect(connection, &QTcpSocket::disconnected, [this](){ this->onDisconnected(); });
     connection->connectToHost(host, port);
-    if(connection->waitForConnected()) {
+    if(connection->waitForConnected(3000)) {
         std::cout<<"Connected!"<<std::endl;
         auto correct_pwd = SERVER_OK_REPLY;
         sendMessage(password, [this, correct_pwd](const QByteArray& data) {
