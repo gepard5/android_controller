@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>single_down_arrow.png</file>
+        <file>single_left_arrow.png</file>
+        <file>single_up_arrow.png</file>
+        <file>single_right_arrow.png</file>
+        <file>double_down_arrow.png</file>
+        <file>double_left_arrow.png</file>
+        <file>double_right_arrow.png</file>
+        <file>double_up_arrow.png</file>
+        <file>../../Projects/rasp_server/lpm.png</file>
+        <file>../../Projects/rasp_server/ppm.png</file>
+        <file>lpm.png</file>
+        <file>ppm.png</file>
+        <file>cursor.png</file>
+        <file>scroll.png</file>
+        <file>bgn.png</file>
+    </qresource>
+</RCC>
