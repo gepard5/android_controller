@@ -3,6 +3,7 @@
 
 #include "screen.h"
 #include "serverconnection.h"
+#include "location.h"
 
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -18,11 +19,16 @@ signals:
 
 public:
     ConnectScreen(ServerConnection *c, QWidget *parent);
+    ~ConnectScreen();
 
 	bool connectTcp();
 
 protected:
     void onReadTcpData() {}
+    void setFieldsFromLocation(const QString& l);
+
+    void readLocationsFromFile();
+    void writeLocationsToFile();
 
 private:
     QPushButton* connect_button;
@@ -33,6 +39,8 @@ private:
     QLineEdit *port_edit;
 
     ServerConnection *connection;
+    std::map<QString, Location> locations_map;
+    QString current_location;
 };
 
 #endif // CONNECTSCREEN_H

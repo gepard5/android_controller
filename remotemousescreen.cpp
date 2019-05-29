@@ -24,8 +24,10 @@ RemoteMouseScreen::RemoteMouseScreen(QWidget * parent) : Screen(parent)
     keyboard_layout->addWidget(text_edit);
     keyboard_layout->addWidget(send_button);
     auto control_widget = new QWidget();
-    auto control_layout = new QHBoxLayout();
+    auto control_layout = new QHBoxLayout(); 
     control_widget->setLayout(control_layout);
+    auto tab_button = createKeyboardButton("Tab", "tab");
+    control_layout->addWidget(tab_button);
     auto enter_button = createKeyboardButton("Enter", "enter");
     control_layout->addWidget(enter_button);
     auto backspace_button = createKeyboardButton("Backspace", "backspace");

@@ -8,7 +8,7 @@ EditLocationScreen::EditLocationScreen(QWidget * parent) : Screen(parent, false)
     auto edit_widget = new QWidget(this);
     edit_widget->setMaximumHeight(700);
     edit_widget->setMaximumWidth(700);
-    host_edit = new QLineEdit("10.1.2.169");
+    host_edit = new QLineEdit("127.0.0.1");
     auto edit_layout = new QVBoxLayout();
     edit_widget->setLayout(edit_layout);
     addToBottom(edit_widget);
@@ -22,7 +22,8 @@ EditLocationScreen::EditLocationScreen(QWidget * parent) : Screen(parent, false)
     auto host_label = new QLabel("Host:");
     edit_layout->addWidget(host_label);
     edit_layout->addWidget(host_edit);
-    password_edit = new QLineEdit("123");
+    password_edit = new QLineEdit("");
+    password_edit->setEchoMode(QLineEdit::Password);
     auto password_label = new QLabel("Password:");
     edit_layout->addWidget(password_label);
     edit_layout->addWidget(password_edit);

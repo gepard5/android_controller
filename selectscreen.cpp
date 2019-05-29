@@ -6,12 +6,10 @@
 #include <QTextStream>
 #include "editlocationscreen.h"
 
-SelectScreen::SelectScreen(QWidget *parent) : Screen(parent, false)
+SelectScreen::SelectScreen(QWidget *parent, std::map<QString, Location>& lm) : Screen(parent, false), locations_map(lm)
 {
     locations = new QListWidget(this);
     main_layout->addWidget(locations);
-
-    readLocationsFromFile();
 
     for( const auto& l : locations_map)
     {
@@ -48,11 +46,8 @@ SelectScreen::SelectScreen(QWidget *parent) : Screen(parent, false)
             popup->deleteLater();
             return;
         }
-        const auto& l = locations_map[item->text()];
-        this->changedPort(QString::number(l.port));
-        this->changedHost(l.host);
-        this->changedPassword(l.password);
-        this->showOverlappedScreen();
+       this->locationSelected(item->text());
+       this->showOverlappedScreen();
     });
     main_layout->addWidget(choose_button);
 
@@ -97,33 +92,3 @@ SelectScreen::SelectScreen(QWidget *parent) : Screen(parent, false)
     main_layout->addWidget(back_button);
 }
 
-void SelectScreen::readLocationsFromFile()
-{
-    QString path = QStandardPaths::displayName(QStandardPaths::AppDataLocation);
-    QFile file(path);
-    if( file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        while(!stream.atEnd()) {
-            QStringList list = stream.readLine().split(" ");
-            Location l;
-            l.host = list[1];
-            l.port = list[3].toUShort();
-            l.password = list[2];
-            locations_map[list[0]] = l;
-        }
-    }
-}
-
-void SelectScreen::writeLocationsToFile()
-{
-    QString path = QStandardPaths::displayName(QStandardPaths::AppDataLocation);
-    QFile file(path);
-    if( file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-       for( const auto& l : locations_map)
-       {
-            const Location& loc = l.second;
-            stream << l.first << " " << loc.host << " " << loc.password << " " << loc.port << "\n";
-        }
-    }
-}
