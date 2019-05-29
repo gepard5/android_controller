@@ -132,6 +132,7 @@ MainWindow::MainWindow()
     menu_widget->addToMenu(disconnect_button);
 
     connect(connection, &ServerConnection::disconnected, this, [this](){ command_list.clear(); });
+    connect(connection, &ServerConnection::disconnected, this, [this](){ this->pushScreen(menu_widget); });
 
     auto exit_button = menu_widget->createPushButton("Exit", [](){
         QApplication::quit();
@@ -167,6 +168,13 @@ void MainWindow::pushScreen(Screen *new_screen, bool is_overlapping)
     else {
         if(current_screen != menu_widget)
             current_screen->deleteLater();
+        else {
+            for( auto screen : overlapped_screen )
+            {
+                screen->deleteLater();
+            }
+            overlapped_screen.clear();
+        }
     }
     current_screen->hide();
 

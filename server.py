@@ -14,6 +14,7 @@ PASSWORD = '123'
 #CUSTOM_COMMANDS_FILE='/home/gepard/Projects/rasp_server/custom_commands.txt'
 CUSTOM_COMMANDS_FILE='custom_commands.txt'
 custom_commands = {}
+pyautogui.FAILSAFE = False
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
 	def onListCommands(self, args):
@@ -45,7 +46,10 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 		pyautogui.typewrite(separator.join(args))
 
 	def onCustomCommand(self, command):
-		subprocess.Popen(command.split(' '))
+		if(command == "CLOSE"):
+			pyautogui.hotkey('winright', 'shift', 'q')
+		else:
+			subprocess.Popen(command.split(' '))
 
 
 	def handle(self):

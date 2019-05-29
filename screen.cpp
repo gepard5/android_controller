@@ -13,7 +13,7 @@ Screen::Screen(QWidget *parent, bool addTopButtons) : QWidget(parent)
             emit backToMenu();
         });
         top_layout->addWidget(back_button);
-        auto mouse_button = createPushButton("Mouse", [this]() {
+        auto mouse_button = createPushButton("Remote", [this]() {
            emit showMouse();
         });
         top_layout->addWidget(mouse_button);
