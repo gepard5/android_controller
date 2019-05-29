@@ -10,6 +10,7 @@ import socketserver
 
 LISTENING_ADDRESS = '0.0.0.0'
 SERVER_PORT = 9999
+PASSWORD = '123'
 #CUSTOM_COMMANDS_FILE='/home/gepard/Projects/rasp_server/custom_commands.txt'
 CUSTOM_COMMANDS_FILE='custom_commands.txt'
 custom_commands = {}
@@ -50,7 +51,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 	def handle(self):
 		print("Hello world!")
 		self.greeting_message = "welcome!"
-		self.password = "123"
+		self.password = PASSWORD
 		self.is_connected = False
 		self.available_commands = {
 			'click': self.onClick,
@@ -67,25 +68,21 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 			if not test_data:
 				break
 			self.data = test_data.strip()
-#			print(str(self.data))
 			if(self.data == ""):
 				time.sleep(0.5)
 				continue
 			current_msg += self.data
 			commands = current_msg.split('#####')
-			print(commands)
 			commands_len = len(commands)
 			if( current_msg.endswith('#####')):
 				current_msg = ""
 			else:
 				current_msg = commands[-1]
 				commands_len -= 1
-			print(commands_len)
 
 			for i in range(0, commands_len):
 				splitted = commands[i].split(' ')
 				command = splitted[0]
-				print(splitted)
 				args = []
 				if( len(splitted) > 1 ):
 					args = commands[i].split(' ')[1:]
@@ -100,9 +97,6 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 						self.available_commands[command](args)
 					elif( command in custom_commands.keys() ):
 						self.onCustomCommand(custom_commands[command])
-					else:
-						print("Unrecognized command")
-
 
 
 
