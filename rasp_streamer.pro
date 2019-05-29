@@ -1,5 +1,6 @@
 QT += widgets
 QT += network
+QT += androidextras
 
 requires(qtConfig(listview))
 
@@ -7,15 +8,11 @@ SOURCES   = \
             command.cpp \
             commandscreen.cpp \
             connectscreen.cpp \
-            draggablelabel.cpp \
             editlocationscreen.cpp \
-            keypress.cpp \
-            keyreceiver.cpp \
             location.cpp \
             main.cpp \
             mainwindow.cpp \
             menuwidget.cpp \
-            remotekeyboardscreen.cpp \
             remotemousescreen.cpp \
             screen.cpp \
             scrollbar.cpp \
@@ -26,14 +23,10 @@ HEADERS   = \
             command.h \
             commandscreen.h \
             connectscreen.h \
-            draggablelabel.h \
             editlocationscreen.h \
-            keypress.h \
-            keyreceiver.h \
             location.h \
             mainwindow.h \
             menuwidget.h \
-            remotekeyboardscreen.h \
             remotemousescreen.h \
             screen.h \
             scrollbar.h \
@@ -47,3 +40,9 @@ INSTALLS += target
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    android-sources/AndroidManifest.xml
+
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android-sources

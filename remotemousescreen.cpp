@@ -52,7 +52,7 @@ RemoteMouseScreen::RemoteMouseScreen(QWidget * parent) : Screen(parent)
     connect(touchpad, &Touchpad::mouseMoved, [this](int x, int y){
        this->sendData((QString("move ") + QString::number(x) + QString(" ") + QString::number(y)).toUtf8());
     });
-    connect(scrollbar, &Scrollbar::mouseMoved, [this](int x, int y){
+    connect(scrollbar, &Scrollbar::mouseMoved, [this](int, int y){
        this->sendData((QString("scroll ") + QString::number(y)).toUtf8());
     });
 

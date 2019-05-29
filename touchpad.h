@@ -29,20 +29,14 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override {
         int x = event->pos().x() - current_x;
         int y = event->pos().y() - current_y;
-        std::cout<<"Mouse position: "<<x<<" "<<y<<std::endl;
-        std::cout<<"Original position: "<<event->pos().x()<<" "<<event->pos().y()<<std::endl;
-        std::cout<<"Current: "<<current_x<<" "<<current_y<<std::endl;
         if((abs(y) + abs(x)) >= MOVE_THRESHOLD) {
             current_x = event->pos().x();
             current_y = event->pos().y();
-            std::cout<<"Moved"<<std::endl;
             emit mouseMoved(x/3, y/3);
         }
-   //     setGeometry(QRect(geometry().topLeft() + event->pos() - dragStart, rect().size()));
     }
 
     void mouseReleaseEvent(QMouseEvent *event) override {
-     //   setGeometry(QRect(starting_point, rect().size()));
     }
 
 private:

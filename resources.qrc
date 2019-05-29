@@ -15,5 +15,6 @@
         <file>cursor.png</file>
         <file>scroll.png</file>
         <file>bgn.png</file>
+        <file>bgnc.png</file>
     </qresource>
 </RCC>

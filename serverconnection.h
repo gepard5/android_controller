@@ -24,6 +24,9 @@ public:
     void setPassword(const QString& p)
     { password = p; }
 
+    void disconnectFromHost()
+    { if(connection) connection->disconnectFromHost(); }
+
     void setPort(unsigned short p)
     { port = p; }
 

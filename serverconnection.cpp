@@ -1,6 +1,5 @@
 #include "serverconnection.h"
 
-#include <iostream>
 #include <QMessageBox>
 
 ServerConnection::ServerConnection()
@@ -26,7 +25,6 @@ ServerConnection::~ServerConnection()
 
 void ServerConnection::onDisconnected()
 {
-    std::cout<<"Disconnected"<<std::endl;
     is_connected = false;
     connection->deleteLater();
     connection = nullptr;
@@ -45,7 +43,8 @@ void ServerConnection::onReadTcpData()
 void ServerConnection::sendMessage(const QString & msg, reply_handler reply)
 {
     current_reply_handler = reply;
-    connection->write((msg+QString("#####")).toUtf8());
+    if(connection)
+        connection->write((msg+QString("#####")).toUtf8());
 }
 
 void ServerConnection::sendSimpleMessage(const QString &msg)
@@ -67,7 +66,6 @@ void ServerConnection::connectToHost()
     connect(connection, &QTcpSocket::disconnected, [this](){ this->onDisconnected(); });
     connection->connectToHost(host, port);
     if(connection->waitForConnected(3000)) {
-        std::cout<<"Connected!"<<std::endl;
         auto correct_pwd = SERVER_OK_REPLY;
         sendMessage(password, [this, correct_pwd](const QByteArray& data) {
             QString reply = QString::fromUtf8(data).trimmed();

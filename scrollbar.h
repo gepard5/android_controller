@@ -33,11 +33,9 @@ protected:
             std::cout<<"Moved"<<std::endl;
             emit mouseMoved(0, -1*y/10);
         }
-   //     setGeometry(QRect(geometry().topLeft() + event->pos() - dragStart, rect().size()));
     }
 
     void mouseReleaseEvent(QMouseEvent *event) override {
-     //   setGeometry(QRect(starting_point, rect().size()));
     }
 
 private:

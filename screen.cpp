@@ -13,10 +13,6 @@ Screen::Screen(QWidget *parent, bool addTopButtons) : QWidget(parent)
             emit backToMenu();
         });
         top_layout->addWidget(back_button);
-      //  auto keyboard_button = createPushButton("Keyboard", [this]() {
-      //      emit showKeyboard();
-      //  });
-      //  top_layout->addWidget(keyboard_button);
         auto mouse_button = createPushButton("Mouse", [this]() {
            emit showMouse();
         });
@@ -40,8 +36,6 @@ QPushButton * Screen::createPushButton(const QString& msg, action push_action, i
     QPushButton *button = new QPushButton(msg);
     button->setMinimumSize(QSize(width, height));
     QFont f("Arial Black", 18, QFont::Bold );
-   // button->setStyleSheet("QPushButton:enabled{ border: 10px solid white; color: white; background-color: black; } QPushButton:disabled{ color:rgb(183. 183, 183); }");
-    //button->setStyleSheet("QPushButton:disabled{ color:rgb(183, 183, 183); }");
     button->setFont(f);
     connect(button, &QPushButton::clicked, this, push_action);
     return button;

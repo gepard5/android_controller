@@ -1,9 +1,6 @@
 #include "commandscreen.h"
 
 #include <QVBoxLayout>
-#include <iostream>
-
-
 
 CommandScreen::CommandScreen()
 {
@@ -17,7 +14,6 @@ CommandScreen::CommandScreen(const std::vector<QString>& commands, ServerConnect
 
     for( const auto& command : commands )
     {
-        std::cout<<"Command pushed: "<<command.toStdString()<<std::endl;
         auto cmd_object = new Command();
         cmd_object->fromQString(command);
         auto button = createPushButton(command, [cmd_object](){

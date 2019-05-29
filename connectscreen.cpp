@@ -4,11 +4,10 @@
 #include <QLabel>
 #include <QIntValidator>
 
-#include <iostream>
 #include "selectscreen.h"
 
 
-ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(parent), connection(conn)
+ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(parent, false), connection(conn)
 {
     auto edit_widget = new QWidget(this);
     edit_widget->setMaximumHeight(500);
@@ -34,8 +33,6 @@ ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(p
     edit_layout->addWidget(port_label);
     edit_layout->addWidget(port_edit);
 
-
-
     auto buttons_widget = new QWidget(this);
     auto buttons_layout = new QVBoxLayout();
     buttons_widget->setMaximumHeight(300);
@@ -57,8 +54,8 @@ ConnectScreen::ConnectScreen(ServerConnection *conn, QWidget *parent) : Screen(p
     auto back_button = createPushButton("Back to menu", [this](){ emit backToMenu(); });
     buttons_layout->addWidget(back_button);
 
-    connect(connection, &ServerConnection::connected, [this](){
-       emit backToMenu();
+    connect(connection, &ServerConnection::connected, this, [this](){
+       this->backToMenu();
     });
 }
 
@@ -70,4 +67,3 @@ bool ConnectScreen::connectTcp()
     connection->connectToHost();
     return connection->isConnected();
 }
-

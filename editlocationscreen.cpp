@@ -1,11 +1,9 @@
 #include "editlocationscreen.h"
 
-
 #include <QLineEdit>
 #include <QIntValidator>
 
-
-EditLocationScreen::EditLocationScreen(QWidget * parent) : Screen(parent)
+EditLocationScreen::EditLocationScreen(QWidget * parent) : Screen(parent, false)
 {
     auto edit_widget = new QWidget(this);
     edit_widget->setMaximumHeight(700);
@@ -22,21 +20,16 @@ EditLocationScreen::EditLocationScreen(QWidget * parent) : Screen(parent)
     edit_layout->addWidget(name_edit);
     //host_edit->setMaximumHeight(30);
     auto host_label = new QLabel("Host:");
-   // host_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
     edit_layout->addWidget(host_label);
     edit_layout->addWidget(host_edit);
     password_edit = new QLineEdit("123");
-   // password_edit->setMaximumHeight(30);
     auto password_label = new QLabel("Password:");
- //   password_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
     edit_layout->addWidget(password_label);
     edit_layout->addWidget(password_edit);
 
     port_edit = new QLineEdit("9999");
     port_edit->setValidator(new QIntValidator(0, 65536, this));
     auto port_label = new QLabel("Port:");
-   // port_label->setStyleSheet("QLabel { color: white; font-size: 40px; color:rgb(38,248,255); }");
-    //port_label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     edit_layout->addWidget(port_label);
     edit_layout->addWidget(port_edit);
 

@@ -6,7 +6,7 @@
 #include <QTextStream>
 #include "editlocationscreen.h"
 
-SelectScreen::SelectScreen(QWidget *parent) : Screen(parent)
+SelectScreen::SelectScreen(QWidget *parent) : Screen(parent, false)
 {
     locations = new QListWidget(this);
     main_layout->addWidget(locations);
@@ -107,8 +107,8 @@ void SelectScreen::readLocationsFromFile()
             QStringList list = stream.readLine().split(" ");
             Location l;
             l.host = list[1];
-            l.port = list[2].toUShort();
-            l.password = list[3];
+            l.port = list[3].toUShort();
+            l.password = list[2];
             locations_map[list[0]] = l;
         }
     }
